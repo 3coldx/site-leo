@@ -1,0 +1,456 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leonardo Soares - Eletricista de respeito!</title>
+  <meta name="description" content="Página de divulgação dos serviços de Leonardo, eletricista.">
+  <style>
+    :root {
+      --bg: #070b12;
+      --surface: #101725;
+      --surface-2: #161f2e;
+      --text: #f5f7fb;
+      --muted: #9ca3af;
+      --primary: #d4af37;
+      --primary-dark: #a67c00;
+      --border: rgba(212, 175, 55, 0.25);
+      --shadow: 0 20px 45px rgba(0,0,0,0.35);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(212,175,55,0.18), transparent 28%),
+        linear-gradient(135deg, #05070d 0%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f1729 0%, #111827 100%);
+      color: white;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(212,175,55,0.18), transparent 45%);
+      pointer-events: none;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(212,175,55,0.16);
+      color: var(--primary);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      border: 1px solid rgba(212,175,55,0.25);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      color: var(--primary);
+    }
+
+    .brand p {
+      margin: 8px 0 0;
+      color: #e5e7eb;
+      max-width: 620px;
+      font-size: 1rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .tab-btn {
+      border: 1px solid rgba(212,175,55,0.25);
+      background: rgba(255,255,255,0.04);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: 0.25s ease;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: linear-gradient(135deg, var(--primary), #f3d16b);
+      color: #111827;
+      font-weight: bold;
+      transform: translateY(-2px);
+    }
+
+    main {
+      margin-top: 24px;
+    }
+
+    .panel {
+      display: none;
+      background: linear-gradient(145deg, var(--surface) 0%, var(--surface-2) 100%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--primary);
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+      margin: 0 0 10px;
+      color: #fdf2d0;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(212,175,55,0.12);
+      color: #f5d88f;
+      border: 1px solid rgba(212,175,55,0.2);
+      font-size: 0.9rem;
+    }
+
+    .highlight-box {
+      background: rgba(212,175,55,0.1);
+      border: 1px solid rgba(212,175,55,0.25);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .highlight-box h3 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    .services-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .service-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .service-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212,175,55,0.35);
+    }
+
+    .service-item h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #f8e7aa;
+    }
+
+    .service-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 18px;
+    }
+
+    .portfolio-card {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      transition: transform 0.2s ease;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .photo-box {
+      height: 180px;
+      background: linear-gradient(135deg, #b8860b, #f2c94c 70%, #7a4f00);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff8de;
+      font-weight: bold;
+      font-size: 1rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .card-content {
+      padding: 16px;
+    }
+
+    .card-content h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      color: #f8e7aa;
+    }
+
+    .card-content p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .contact {
+      margin-top: 20px;
+      padding: 16px 18px;
+      background: linear-gradient(90deg, rgba(212,175,55,0.18), rgba(212,175,55,0.08));
+      color: #fdf2d0;
+      border: 1px solid rgba(212,175,55,0.25);
+      border-radius: 14px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: white;
+      box-shadow: 0 10px 25px rgba(18,140,126,0.35);
+      text-decoration: none;
+      animation: float 2.2s ease-in-out infinite;
+      border: 2px solid white;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.05);
+    }
+
+    .whatsapp-float svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container { padding: 14px; }
+      .panel { padding: 20px; }
+      .services-list, .portfolio-grid { grid-template-columns: 1fr; }
+      .tabs { gap: 8px; }
+      .tab-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="topbar">
+        <div class="brand">
+          <span class="badge">Eletricista profissional</span>
+          <h1>Leonardo Soares</h1>
+          <p>Segurança, precisão e acabamento impecável em cada serviço realizado com dedicação.</p>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Navegação da página">
+        <button class="tab-btn active" data-tab="servicos">Serviços</button>
+        <button class="tab-btn" data-tab="trabalhos">Trabalhos realizados</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel active" id="servicos">
+        <div class="hero">
+          <div>
+            <span class="eyebrow">Atendimento confiável</span>
+            <h2>Serviços elétricos com responsabilidade e destaque</h2>
+            <p>Atendimento com organização, cuidado técnico e foco em segurança para entregar soluções duradouras e bem acabadas.</p>
+            <div class="hero-actions">
+              <span class="pill">Instalações</span>
+              <span class="pill">Manutenção</span>
+              <span class="pill">Reformas</span>
+            </div>
+          </div>
+          <div class="highlight-box">
+            <h3>O que posso fazer</h3>
+            <p>Execução de projetos elétricos, melhorias, reparos e adaptações com atenção aos detalhes e acabamento profissional.</p>
+          </div>
+        </div>
+
+        <div class="services-list">
+          <div class="service-item">
+            <h3>Instalações residenciais</h3>
+            <p>Projetos e execução para ambientes com praticidade, organização e segurança.</p>
+          </div>
+          <div class="service-item">
+            <h3>Manutenção elétrica</h3>
+            <p>Diagnóstico e correção de problemas com eficiência e cuidado técnico.</p>
+          </div>
+          <div class="service-item">
+            <h3>Reformas e melhorias</h3>
+            <p>Atualização de pontos de energia, iluminação e estrutura elétrica.</p>
+          </div>
+          <div class="service-item">
+            <h3>Atendimento especializado</h3>
+            <p>Soluções personalizadas para cada necessidade, com foco em funcionalidade.</p>
+          </div>
+        </div>
+
+        <div class="contact">
+          Precisa de um serviço elétrico confiável? Fale comigo no WhatsApp e vamos resolver sua necessidade.
+        </div>
+      </section>
+
+      <section class="panel" id="trabalhos">
+        <h2>Alguns trabalhos realizados</h2>
+        <p>Confira abaixo exemplos de serviços que já foram executados. Os espaços abaixo podem receber fotos do seu trabalho.</p>
+
+        <div class="portfolio-grid">
+          <article class="portfolio-card">
+            <div class="photo-box">Espaço para foto</div>
+            <div class="card-content">
+              <h3>Instalação elétrica residencial</h3>
+              <p>Execução de pontos de energia, iluminação e organização do sistema elétrico.</p>
+            </div>
+          </article>
+
+          <article class="portfolio-card">
+            <div class="photo-box">Espaço para foto</div>
+            <div class="card-content">
+              <h3>Manutenção predial</h3>
+              <p>Correção de falhas e melhoria no funcionamento de ambientes comerciais e residenciais.</p>
+            </div>
+          </article>
+
+          <article class="portfolio-card">
+            <div class="photo-box">Espaço para foto</div>
+            <div class="card-content">
+              <h3>Reforma elétrica</h3>
+              <p>Atualização de circuitos e adequação para melhor desempenho e segurança.</p>
+            </div>
+          </article>
+
+          <article class="portfolio-card">
+            <div class="photo-box">Espaço para foto</div>
+            <div class="card-content">
+              <h3>Melhorias e detalhes</h3>
+              <p>Implementação de soluções práticas para otimizar o uso de cada ambiente.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <a class="whatsapp-float" href="https://wa.me/5524992760589" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M16.9 14.9c-.2-.1-1.2-.6-1.4-.7-.2-.1-.3-.1-.5.1-.1.1-.5.7-.6.8-.1.1-.2.1-.4 0a7.9 7.9 0 0 1-2.4-1.5 8.8 8.8 0 0 1-1.6-2c-.1-.2 0-.3.1-.4l.2-.2c.1-.1.2-.2.3-.3a.4.4 0 0 0 0-.4c0-.1-.4-1-.6-1.3-.2-.3-.3-.3-.5-.3h-.4c-.1 0-.3 0-.4.1-.4.3-.6.7-.7 1.1a2.8 2.8 0 0 0 .6 2.4c.1.1.1.2.2.3l.2.2c-.5.9-1.1 1.8-1.8 2.5-.1.1-.2.2-.2.4a10.1 10.1 0 0 0 3.7 4.1c.1.1.3.1.4.1.7-.1 1.4-.3 2-.6.2-.1.3-.2.4-.3.1-.1.2-.2.2-.3v-.4c0-.2 0-.3-.1-.4s-.7-.2-.9-.3Z"></path>
+    </svg>
+  </a>
+
+  <script>
+    const buttons = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.panel');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const target = button.getAttribute('data-tab');
+
+        buttons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        panels.forEach(panel => {
+          panel.classList.toggle('active', panel.id === target);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
